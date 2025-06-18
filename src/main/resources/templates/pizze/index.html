@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
+<!-- Head fragment -->
 <head th:replace="fragments/head :: head('Lista pizze')">
 
 
 <body>
 
+<!-- Navbar fragment -->
 <section th:insert="fragments/navbar :: navbar"></section>
 
+<!-- Main page -->
     <main class="container">
+
+        <form th:action="@{/pizze}" class="d-flex mt-2" role="search">
+            <input class="form-control me-2" type="search" name="keyword" placeholder="Cerca" aria-label="Cerca" />
+            <button class="btn btn-success" type="submit">Cerca</button>
+        </form>
 
         <div class="row justify-content-center">
             <div th:each="pizze : ${pizze}" th:object="${pizze}" class="card col-4 p-0 m-2" style="width: 18rem;">
-                <img th:src="*{urlFoto}" class="card-img-top h-50"alt="...">
+                <img th:src="*{urlFoto}" class="card-img-top h-50" alt="...">
                 <div class="card-body py-2 px-2">
                     <h5 class="card-title">[[*{nome}]]</h5>
                     <ul class="list-group">
@@ -27,6 +35,9 @@
         </div>
 
     </main>
+
+<!-- Script fragment -->
+<section th:insert="fragments/script :: script"></section>
 
 </body>
 

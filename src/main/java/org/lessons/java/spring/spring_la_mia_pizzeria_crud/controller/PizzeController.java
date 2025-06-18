@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -22,8 +23,14 @@ public class PizzeController {
     private PizzaRepository pizzeRepository;
 
     @GetMapping
-    public String index(Model model) {
-        List<Pizza> pizze = pizzeRepository.findAll();
+    public String index(Model model, @RequestParam(required = false) String keyword) {
+        List<Pizza> pizze;
+    if (keyword!=null && !keyword.isEmpty()){
+          pizze= pizzeRepository.findByNomeContainingIgnoreCase(keyword);
+    } else {
+        pizze = pizzeRepository.findAll();
+    }  
+
         model.addAttribute("pizze", pizze);
         return "pizze/index";
     }
