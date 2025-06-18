@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" l  lang="en">
+<head th:replace="fragments/head :: head('Lista pizze')"></head>
+<body>
+    
+    <section th:insert="fragments/navbar :: navbar"></section>
+
+     <div class="row justify-content-center">
+            <div th:object="${pizze}" class="card col-6 p-0 m-2" >
+                <img th:src="*{urlFoto}" class="card-img-top h-50"alt="...">
+                <div class="card-body py-2 px-2">
+                    <h5 class="card-title">[[*{nome}]]</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">[[*{descrizione}]]</li>
+                        <li class="list-group-item">[[*{prezzo}]]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

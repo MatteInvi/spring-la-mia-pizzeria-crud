@@ -12,12 +12,15 @@
 
         <div class="row justify-content-center">
             <div th:each="pizze : ${pizze}" th:object="${pizze}" class="card col-4 p-0 m-2" style="width: 18rem;">
-                <img th:src="@{{urlFoto}(urlFoto=*{urlFoto})}" class="card-img-top w-100 h-50"alt="...">
+                <img th:src="*{urlFoto}" class="card-img-top h-50"alt="...">
                 <div class="card-body py-2 px-2">
                     <h5 class="card-title">[[*{nome}]]</h5>
                     <ul class="list-group">
                         <li class="list-group-item">[[*{descrizione}]]</li>
                         <li class="list-group-item">[[*{prezzo}]]</li>
+                        <li class="text-center list-group-item">
+                            <a th:href="@{pizze/{id}(id=*{id})}" class="btn btn-primary">Mostra dettagli</a>
+                        </li>
                     </ul>
                 </div>
             </div>
