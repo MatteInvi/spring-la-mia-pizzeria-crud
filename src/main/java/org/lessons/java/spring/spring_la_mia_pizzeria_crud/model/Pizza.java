@@ -2,16 +2,16 @@ package org.lessons.java.spring.spring_la_mia_pizzeria_crud.model;
 
 
 
-import java.text.NumberFormat;
-import java.util.Locale;
 
-import io.micrometer.common.lang.NonNull;
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -23,19 +23,18 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @NotNull
+
     @NotBlank(message = "Il nome non può essere vuoto")
     private String nome;
 
-    @NotBlank(message = "La descrizione non può essere vuoto")
+    @NotBlank(message = "La descrizione non può essere vuota")
     private String descrizione;
     
     @Lob
-    @NotBlank(message = "URL foto non può essere vuoto")
     private String urlFoto;
     
     @NotNull
-    @NotBlank(message = "Il prezzo non può essere vuoto")
+    @Min(value = 1, message = "Il prezzo non può essere inferiore a 1")
     private Float prezzo;
 
 
@@ -69,6 +68,7 @@ public class Pizza {
     }
 
     public void setPrezzo(Float prezzo) {
+ 
         this.prezzo = prezzo;
     }
 

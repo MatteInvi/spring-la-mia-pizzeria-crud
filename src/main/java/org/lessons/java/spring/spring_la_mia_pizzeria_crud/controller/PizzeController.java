@@ -40,21 +40,51 @@ public class PizzeController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable Integer id, Model model) {
-        model.addAttribute("pizze", pizzeRepository.findById(id).get());
+        model.addAttribute("pizza", pizzeRepository.findById(id).get());
         return "pizze/show";
 
     }
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("pizze", new Pizza());
+        model.addAttribute("pizza", new Pizza());
         return "pizze/create";
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizze") Pizza formPizza, BindingResult bindingResult, Model model){
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "/pizze/create";
+        }
+
         pizzeRepository.save(formPizza);
-        return"redirect:/pizze";
+        return "redirect:/pizze";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("pizza", pizzeRepository.findById(id).get());
+        return"pizze/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza,
+            BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "/pizze/edit";
+        }
+
+        pizzeRepository.save(formPizza);
+
+        return "redirect:/pizze";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id, Model model){
+        pizzeRepository.deleteById(id);
+        return "redirect:/pizze";
     }
 
 }
