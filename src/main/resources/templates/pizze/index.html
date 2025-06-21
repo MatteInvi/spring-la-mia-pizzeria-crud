@@ -2,42 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <!-- Head fragment -->
+
 <head th:replace="fragments/head :: head('Lista pizze')">
 
 
 <body>
 
-<!-- Navbar fragment -->
-<section th:insert="fragments/navbar :: navbar"></section>
+    <!-- Navbar fragment -->
+    <section th:insert="fragments/navbar :: navbar"></section>
 
-<!-- Main page -->
+    <!-- Main page -->
     <main class="container">
 
-        <form th:action="@{/pizze}" class="d-flex mt-2" role="search">
-            <input class="form-control me-2" type="search" name="keyword" placeholder="Cerca" aria-label="Cerca" />
-            <button class="btn btn-success" type="submit">Cerca</button>
-        </form>
+        <section class="d-flex justify-content-between">
+            <form th:action="@{/pizze}" class="d-flex mt-2 mb-2" role="search">
+                <input class="form-control me-2" type="search" name="keyword" placeholder="Cerca" aria-label="Cerca" />
+                <button class="btn btn-success" type="submit">Cerca</button>
+            </form>
 
-        <div class="row justify-content-center">
-            <div th:each="pizze : ${pizze}" th:object="${pizze}" class="card col-4 p-0 m-2" style="width: 18rem;">
-                <img th:src="*{urlFoto}" class="card-img-top h-50" alt="...">
-                <div class="card-body py-2 px-2">
-                    <h5 class="card-title">[[*{nome}]]</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item">[[*{descrizione}]]</li>
-                        <li class="list-group-item">[[*{prezzo}]]</li>
-                        <li class="text-center list-group-item">
-                            <a th:href="@{pizze/{id}(id=*{id})}" class="btn btn-primary">Mostra dettagli</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+            <a th:href="@{pizze/create}" class="btn btn-primary  mt-2 mb-2">Aggiungi una nuova pizza</a>
+
+        </section>
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nome</th>
+                    <th>Descrizione</th>
+                    <th>Prezzo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pizze : ${pizze}" th:object="${pizze}">
+                    <td>[[*{id}]]</td>
+                    <td>[[*{nome}]]</td>
+                    <td>[[*{descrizione}]]</td>
+                    <td>[[*{prezzo}]]€</td>
+                    <td><a th:href="@{pizze/{id}(id=*{id})}" class="btn btn-primary">Show</a></td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
 
     </main>
 
-<!-- Script fragment -->
-<section th:insert="fragments/script :: script"></section>
+    <!-- Script fragment -->
+    <section th:insert="fragments/script :: script"></section>
 
 </body>
 

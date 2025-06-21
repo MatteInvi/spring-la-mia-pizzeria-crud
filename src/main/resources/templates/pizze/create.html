@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="fragments/head :: head('Lista pizze')">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <section th:insert="fragments/navbar :: navbar"></section>
+
+    <main class="container">
+
+        <div class="mt-3 p-2 bg-warning-subtle">
+            <form th:action="@{/pizze/create}" method="POST" th:object="${pizze}" id="pizza-creatione-form">
+                <label for="nome" class="form-label">Nome:</label>
+                <input th:field="*{nome}" type="text" class="form-control" id="nome">
+                <label for="descrizione" class="form-label">Descrizione:</label>
+                <input th:field="*{descrizione}" type="text" class="form-control" id="descrizione">
+                <label for="url-foto" class="form-label">URL Foto:</label>
+                <input th:field="*{urlFoto}" type="text" class="form-control" id="url-foto">
+                <label for="prezzo" class="form-label">Prezzo:</label>
+                <input th:field="*{prezzo}" type="text" class="form-control" id="prezzo">
+                <button type="submit" class="btn btn-primary mt-2">Crea</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
+                    <div class="mb-3">
+                     
