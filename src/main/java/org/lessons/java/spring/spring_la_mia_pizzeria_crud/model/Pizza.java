@@ -5,6 +5,11 @@ package org.lessons.java.spring.spring_la_mia_pizzeria_crud.model;
 
 
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
+import org.springframework.core.convert.converter.ConverterFactory;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,8 +17,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name="pizze")
@@ -27,19 +35,19 @@ public class Pizza {
     @NotBlank(message = "Il nome non può essere vuoto")
     private String nome;
 
+    @Lob
     @NotBlank(message = "La descrizione non può essere vuota")
     private String descrizione;
     
     @Lob
     private String urlFoto;
     
-    @NotNull
-    @Min(value = 1, message = "Il prezzo non può essere inferiore a 1")
-    private Float prezzo;
+    @NotNull (message="Il prezzo non può essere vuoto")
+    @Positive(message = "Il prezzo non può essere inferiore a 1")
+    private BigDecimal prezzo;
 
 
     public String getNome() {
-     
         return this.nome;
     }
 
@@ -63,13 +71,13 @@ public class Pizza {
         this.urlFoto = urlFoto;
     }
 
-    public Float getPrezzo() {
+    public BigDecimal getPrezzo() {
        return this.prezzo;
     }
 
-    public void setPrezzo(Float prezzo) {
- 
-        this.prezzo = prezzo;
+    public void setPrezzo(BigDecimal prezzo) {
+
+        this.prezzo =  prezzo;
     }
 
 
